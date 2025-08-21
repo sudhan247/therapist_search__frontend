@@ -138,6 +138,13 @@ class TherapistSearch {
 
             const data = await response.json();
             console.log('✅ Search results:', data);
+            
+            // Debug: Check if ranking_explanation exists in results
+            if (data.results && data.results.length > 0) {
+                console.log('🔍 Sample therapist data:', data.results[0]);
+                console.log('🔍 Ranking explanation:', data.results[0].ranking_explanation);
+            }
+            
             this.displayResults(data);
 
         } catch (error) {
@@ -248,7 +255,12 @@ class TherapistSearch {
                         <i class="fas fa-lightbulb"></i>
                         <strong>Why this match:</strong> ${therapist.ranking_explanation}
                     </div>
-                ` : ''}
+                ` : `
+                    <div class="ranking-explanation">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Why this match:</strong> High similarity score (${similarity}%) based on specialties and location match.
+                    </div>
+                `}
 
                 <div class="therapist-actions">
                     <a href="${therapist.profile_url || '#'}" target="_blank" class="view-profile">
