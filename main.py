@@ -27,6 +27,16 @@ async def root():
     """Serve the main HTML page"""
     return FileResponse("static/index.html")
 
+@app.get("/style.css")
+async def get_style():
+    """Serve the CSS file"""
+    return FileResponse("static/style.css")
+
+@app.get("/script.js") 
+async def get_script():
+    """Serve the JS file"""
+    return FileResponse("static/script.js")
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint for Railway"""

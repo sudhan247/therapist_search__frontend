@@ -1,6 +1,6 @@
 class TherapistSearch {
     constructor() {
-        // Use production backend API
+        // Use production backend API (CORS works when both are deployed)
         this.apiBaseUrl = 'https://therapistsearch-production.up.railway.app';
         this.initializeElements();
         this.attachEventListeners();
@@ -94,6 +94,7 @@ class TherapistSearch {
         try {
             console.log('🔍 Searching with payload:', searchPayload);
             console.log('🌐 API URL:', this.apiBaseUrl);
+            console.log('🔗 Full URL:', `${this.apiBaseUrl}/search`);
 
             const response = await fetch(`${this.apiBaseUrl}/search`, {
                 method: 'POST',
@@ -103,8 +104,13 @@ class TherapistSearch {
                 body: JSON.stringify(searchPayload)
             });
 
+            console.log('📡 Response status:', response.status);
+            console.log('📡 Response headers:', response.headers);
+
             if (!response.ok) {
-                throw new Error(`Search failed: ${response.status} ${response.statusText}`);
+                const errorText = await response.text();
+                console.error('❌ Error response:', errorText);
+                throw new Error(`Search failed: ${response.status} ${response.statusText} - ${errorText}`);
             }
 
             const data = await response.json();
@@ -113,7 +119,8 @@ class TherapistSearch {
 
         } catch (error) {
             console.error('❌ Search error:', error);
-            this.showError(`Search failed: ${error.message}. Please try again.`);
+            console.error('❌ Error stack:', error.stack);
+            this.showError(`Search failed: ${error.message}. Please check browser console for details.`);
         }
     }
 
