@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Search</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-user-md"></i> Find Your Perfect Therapist</h1>
+            <p>Search for mental health professionals using natural language</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="e.g., spanish speaking therapist for anxiety and college stress"
+                    autocomplete="off"
+                >
+                <button id="searchBtn" class="search-button">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+            
+            <div class="quick-searches">
+                <span>Quick searches:</span>
+                <button class="quick-search" data-query="anxiety therapist with telehealth">Anxiety + Online</button>
+                <button class="quick-search" data-query="spanish speaking therapist">Spanish Speaking</button>
+                <button class="quick-search" data-query="college student counseling">Student Counseling</button>
+                <button class="quick-search" data-query="couples therapy">Couples Therapy</button>
+            </div>
+
+            <div class="filters-section" id="filtersSection">
+                <h3><i class="fas fa-filter"></i> Filters</h3>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Max Fee per Session</label>
+                        <select id="maxFee">
+                            <option value="">Any Price</option>
+                            <option value="100">Under $100</option>
+                            <option value="125">Under $125</option>
+                            <option value="150">Under $150</option>
+                            <option value="200">Under $200</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>State</label>
+                        <select id="state">
+                            <option value="">Any State</option>
+                            <option value="CA">California</option>
+                            <option value="TX">Texas</option>
+                            <option value="FL">Florida</option>
+                            <option value="MA">Massachusetts</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Language</label>
+                        <select id="language">
+                            <option value="">Any Language</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Korean">Korean</option>
+                            <option value="Mandarin">Mandarin</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>
+                            <input type="checkbox" id="telehealthOnly">
+                            Telehealth Available
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Searching for therapists...</span>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2 id="resultsTitle"></h2>
+                <div class="results-stats" id="resultsStats"></div>
+            </div>
+            <div class="results-grid" id="resultsGrid"></div>
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No therapists found</h3>
+            <p>Try adjusting your search terms or filters</p>
+        </div>
+
+        <div class="error-message" id="errorMessage" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText"></span>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
