@@ -34,6 +34,24 @@ header p {
     opacity: 0.9;
 }
 
+.stats-display {
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stats-display i {
+    font-size: 1rem;
+}
+
 .search-section {
     background: white;
     border-radius: 20px;
@@ -299,6 +317,27 @@ header p {
     color: #555;
     line-height: 1.6;
     margin-bottom: 15px;
+}
+
+.ranking-explanation {
+    background: #f8f9ff;
+    border-left: 3px solid #667eea;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.ranking-explanation i {
+    color: #667eea;
+    margin-right: 8px;
+}
+
+.ranking-explanation strong {
+    color: #333;
+    margin-right: 5px;
 }
 
 .therapist-actions {

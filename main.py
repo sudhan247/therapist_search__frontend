@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
+import httpx
 
 app = FastAPI(
     title="Therapist Search Frontend",
@@ -45,6 +46,29 @@ async def health_check():
         "message": "Therapist Search Frontend is running",
         "version": "1.0.0"
     }
+
+@app.get("/api/stats")
+async def get_stats():
+    """Fetch stats from backend API including total profiles count"""
+    backend_url = "https://therapistsearch-production.up.railway.app"
+    
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"{backend_url}/health", timeout=10.0)
+            response.raise_for_status()
+            backend_data = response.json()
+            
+            return {
+                "status": "success",
+                "total_profiles": backend_data.get("total_vectors", 0),
+                "backend_healthy": backend_data.get("status") == "healthy",
+                "index_name": backend_data.get("index_name", "therapist-search")
+            }
+    except Exception as e:
+        raise HTTPException(
+            status_code=503, 
+            detail=f"Unable to fetch stats from backend: {str(e)}"
+        )
 
 if __name__ == "__main__":
     import uvicorn

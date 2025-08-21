@@ -5,6 +5,7 @@ class TherapistSearch {
         this.initializeElements();
         this.attachEventListeners();
         this.loadExampleQuery();
+        this.loadStats();
     }
 
     initializeElements() {
@@ -18,6 +19,10 @@ class TherapistSearch {
         this.noResults = document.getElementById('noResults');
         this.errorMessage = document.getElementById('errorMessage');
         this.errorText = document.getElementById('errorText');
+        
+        // Stats elements
+        this.statsDisplay = document.getElementById('statsDisplay');
+        this.totalProfiles = document.getElementById('totalProfiles');
         
         // Filters
         this.maxFeeSelect = document.getElementById('maxFee');
@@ -55,6 +60,24 @@ class TherapistSearch {
     loadExampleQuery() {
         this.searchInput.value = "spanish speaking therapist for anxiety and college stress";
         this.searchInput.focus();
+    }
+
+    async loadStats() {
+        try {
+            const response = await fetch('/api/stats');
+            
+            if (response.ok) {
+                const data = await response.json();
+                this.totalProfiles.textContent = data.total_profiles.toLocaleString();
+                this.statsDisplay.style.display = 'block';
+            } else {
+                // Silently fail - don't show stats if unavailable
+                console.warn('Failed to load stats:', response.status);
+            }
+        } catch (error) {
+            // Silently fail - don't show stats if unavailable  
+            console.warn('Failed to load stats:', error);
+        }
     }
 
     buildSearchPayload(query) {
@@ -219,6 +242,13 @@ class TherapistSearch {
                 <div class="description">
                     ${truncatedDescription}
                 </div>
+
+                ${therapist.ranking_explanation ? `
+                    <div class="ranking-explanation">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Why this match:</strong> ${therapist.ranking_explanation}
+                    </div>
+                ` : ''}
 
                 <div class="therapist-actions">
                     <a href="${therapist.profile_url || '#'}" target="_blank" class="view-profile">
