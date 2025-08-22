@@ -65,7 +65,7 @@ class TherapistSearch {
 
     async loadStats() {
         try {
-            const response = await fetch('/api/stats');
+            const response = await fetch(`${this.apiBaseUrl}/health`);
             
             if (response.ok) {
                 const data = await response.json();
