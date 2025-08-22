@@ -65,64 +65,18 @@ class TherapistSearch {
 
     async loadStats() {
         try {
-            // Load basic total from fast health endpoint
-            const healthResponse = await fetch(`${this.apiBaseUrl}/health`);
-            
-            if (healthResponse.ok) {
-                const healthData = await healthResponse.json();
-                this.totalProfiles.textContent = healthData.total_profiles.toLocaleString();
-                this.statsDisplay.style.display = 'block';
-                
-                // Load detailed provider stats (optional, slower)
-                this.loadProviderStats();
-            } else {
-                console.warn('Failed to load basic stats:', healthResponse.status);
-            }
-        } catch (error) {
-            console.warn('Failed to load basic stats:', error);
-        }
-    }
-
-    async loadProviderStats() {
-        try {
-            const response = await fetch(`${this.apiBaseUrl}/provider-stats`);
+            const response = await fetch(`${this.apiBaseUrl}/health`);
             
             if (response.ok) {
                 const data = await response.json();
-                if (data.status === 'success') {
-                    this.displayProviderBreakdown(data.provider_counts);
-                }
+                this.totalProfiles.textContent = data.total_profiles.toLocaleString();
+                this.statsDisplay.style.display = 'block';
             } else {
-                console.warn('Provider stats unavailable:', response.status);
+                console.warn('Failed to load stats:', response.status);
             }
         } catch (error) {
-            console.warn('Failed to load provider stats:', error);
+            console.warn('Failed to load stats:', error);
         }
-    }
-
-    displayProviderBreakdown(providerCounts) {
-        // Find or create provider breakdown display
-        let breakdownElement = document.getElementById('providerBreakdown');
-        if (!breakdownElement) {
-            breakdownElement = document.createElement('div');
-            breakdownElement.id = 'providerBreakdown';
-            breakdownElement.className = 'provider-breakdown';
-            this.statsDisplay.appendChild(breakdownElement);
-        }
-
-        const breakdown = [
-            { type: 'therapist', count: providerCounts.therapist, label: 'Therapists', icon: 'fas fa-user-md' },
-            { type: 'life_coach', count: providerCounts.life_coach, label: 'Life Coaches', icon: 'fas fa-lightbulb' },
-            { type: 'nutrition_coach', count: providerCounts.nutrition_coach, label: 'Nutrition Coaches', icon: 'fas fa-apple-alt' }
-        ];
-
-        breakdownElement.innerHTML = breakdown.map(item => `
-            <div class="provider-stat">
-                <i class="${item.icon}"></i>
-                <span class="count">${typeof item.count === 'number' ? item.count.toLocaleString() : '...'}</span>
-                <span class="label">${item.label}</span>
-            </div>
-        `).join('');
     }
 
     buildSearchPayload(query) {
