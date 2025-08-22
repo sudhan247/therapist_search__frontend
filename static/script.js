@@ -28,6 +28,7 @@ class TherapistSearch {
         this.maxFeeSelect = document.getElementById('maxFee');
         this.stateSelect = document.getElementById('state');
         this.languageSelect = document.getElementById('language');
+        this.providerTypeSelect = document.getElementById('providerType');
         this.telehealthCheckbox = document.getElementById('telehealthOnly');
     }
 
@@ -48,7 +49,7 @@ class TherapistSearch {
         });
 
         // Filter changes
-        [this.maxFeeSelect, this.stateSelect, this.languageSelect, this.telehealthCheckbox].forEach(element => {
+        [this.maxFeeSelect, this.stateSelect, this.languageSelect, this.providerTypeSelect, this.telehealthCheckbox].forEach(element => {
             element.addEventListener('change', () => {
                 if (this.searchInput.value.trim()) {
                     this.performSearch();
@@ -98,6 +99,10 @@ class TherapistSearch {
 
         if (this.languageSelect.value) {
             payload.languages = [this.languageSelect.value];
+        }
+
+        if (this.providerTypeSelect.value) {
+            payload.provider_type = this.providerTypeSelect.value;
         }
 
         return payload;
@@ -180,7 +185,7 @@ class TherapistSearch {
 
         this.resultsSection.style.display = 'block';
         this.resultsTitle.textContent = `Search Results for "${data.query}"`;
-        this.resultsStats.textContent = `Found ${data.total_found} therapists`;
+        this.resultsStats.textContent = `Found ${data.total_found} providers`;
 
         this.resultsGrid.innerHTML = data.results.map(therapist => this.createTherapistCard(therapist)).join('');
     }
@@ -205,6 +210,14 @@ class TherapistSearch {
         const telehealthAvailable = therapist.telehealth_available || 
                                    (therapist.glance_appointments && therapist.glance_appointments.includes('online')) ||
                                    false;
+
+        // Provider type badge
+        const providerTypeInfo = {
+            'therapist': { label: 'Licensed Therapist', icon: 'fas fa-user-md', class: 'provider-therapist' },
+            'life_coach': { label: 'Life Coach', icon: 'fas fa-lightbulb', class: 'provider-coach' },
+            'nutrition_coach': { label: 'Nutrition Coach', icon: 'fas fa-apple-alt', class: 'provider-nutrition' }
+        };
+        const providerInfo = providerTypeInfo[therapist.provider_type] || providerTypeInfo['therapist'];
         
         return `
             <div class="therapist-card">
@@ -267,6 +280,10 @@ class TherapistSearch {
                         <i class="fas fa-external-link-alt"></i>
                         View Full Profile
                     </a>
+                    <span class="provider-badge ${providerInfo.class}">
+                        <i class="${providerInfo.icon}"></i>
+                        ${providerInfo.label}
+                    </span>
                     ${telehealthAvailable ? '<span class="telehealth-badge">Online Available</span>' : ''}
                 </div>
             </div>
