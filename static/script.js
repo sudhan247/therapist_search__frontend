@@ -85,7 +85,7 @@ class TherapistSearch {
         // Build payload to match your production API format
         const payload = {
             query: query,
-            max_results: 10
+            max_results: 3
         };
 
         // Add filters if specified
