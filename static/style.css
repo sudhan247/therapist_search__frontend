@@ -247,9 +247,15 @@ header p {
     gap: 20px;
 }
 
+.therapist-main-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+}
+
 .therapist-avatar {
     flex-shrink: 0;
-    margin-right: 15px;
 }
 
 .therapist-avatar img {

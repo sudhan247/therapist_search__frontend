@@ -220,17 +220,19 @@ class TherapistSearch {
         return `
             <div class="therapist-card">
                 <div class="therapist-header">
-                    ${therapist.profile_pic_url ? `
-                        <div class="therapist-avatar">
-                            <img src="${therapist.profile_pic_url}" alt="${therapist.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmM2Y0ZjYiLz4KPHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAgMTBjLTIuNzYgMC01IDIuMjQtNSA1czIuMjQgNSA1IDUgNS0yLjI0IDUtNS0yLjI0LTUtNS01em0wIDljLTIuNjcgMC04IDEuMzQtOCA0djNjMCAuNTUuNDUgMSAxIDFoMTRjLjU1IDAgMS0uNDUgMS0xdi0zYzAtMi42Ni01LjMzLTQtOC00eiIgZmlsbD0iIzllYTNhOCIvPgo8L3N2Zz4K'; this.onerror=null;">
-                        </div>
-                    ` : ''}
-                    <div class="therapist-info">
-                        <h3>${therapist.name || 'Professional Therapist'}</h3>
-                        <div class="title">${therapist.job_title || 'Licensed Therapist'}</div>
-                        <div class="location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            ${therapist.city || ''}, ${therapist.state || ''}
+                    <div class="therapist-main-info">
+                        ${therapist.profile_pic_url ? `
+                            <div class="therapist-avatar">
+                                <img src="${therapist.profile_pic_url}" alt="${therapist.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmM2Y0ZjYiLz4KPHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAgMTBjLTIuNzYgMC01IDIuMjQtNSA1czIuMjQgNSA1IDUgNS0yLjI0IDUtNS0yLjI0LTUtNS01em0wIDljLTIuNjcgMC04IDEuMzQtOCA0djNjMCAuNTUuNDUgMSAxIDFoMTRjLjU1IDAgMS0uNDUgMS0xdi0zYzAtMi42Ni01LjMzLTQtOC00eiIgZmlsbD0iIzllYTNhOCIvPgo8L3N2Zz4K'; this.onerror=null;">
+                            </div>
+                        ` : ''}
+                        <div class="therapist-info">
+                            <h3>${therapist.name || 'Professional Therapist'}</h3>
+                            <div class="title">${therapist.job_title || 'Licensed Therapist'}</div>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${therapist.city || ''}, ${therapist.state || ''}
+                            </div>
                         </div>
                     </div>
                     <div class="similarity-score">
