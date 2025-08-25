@@ -195,7 +195,7 @@ class TherapistSearch {
             therapist.specialties.slice(0, 5).map(s => `<span class="specialty-tag">${s}</span>`).join('') : 
             '';
 
-        const fee = therapist.fee_individual ? `$${therapist.fee_individual}` : 'Contact for pricing';
+        const fee = therapist.fee_individual || 'Contact for pricing';
         const similarity = (therapist.similarity_score * 100).toFixed(1);
         
         // Handle description
@@ -242,7 +242,7 @@ class TherapistSearch {
 
                 <div class="therapist-details">
                     <div class="detail-item">
-                        <i class="fas fa-dollar-sign"></i>
+                        <i class="fas fa-money-bill-wave"></i>
                         <span>${fee}/session</span>
                     </div>
                     <div class="detail-item">
